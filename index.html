@@ -243,6 +243,14 @@ a.card:hover .arrow{color:var(--fg)}
 .copy:hover{border-color:color-mix(in srgb,var(--accent) 45%,transparent)}
 .addr{user-select:all}
 
+/* QR code: dark modules on a white plate in both themes so it scans */
+.qr{display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:28px;padding:20px 16px;border-radius:20px;background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow)}
+.qr-box{background:#FFFFFF;padding:10px;border-radius:14px;line-height:0}
+.qr-svg{width:148px;height:148px;display:block}
+.qr-cap{display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center}
+.qr-cap span:first-child{font-weight:500;color:var(--fg);font-size:14px}
+.qr-cap .ltr{font-family:var(--latin);font-size:12px;color:var(--accent);direction:ltr}
+
 @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
 /* English, Spanish and Turkish use the Latin face for the whole page */
@@ -370,6 +378,13 @@ a.card:hover .arrow{color:var(--fg)}
         <button type="button" class="copy" data-copy="mobinbiback@gmail.com"><span data-k="copy">کپی</span></button>
       </div>
     </nav>
+    <section class="qr">
+      <div class="qr-box"><svg class="qr-svg" role="img" aria-label="QR code: https://mobinbiback.github.io/Mobinbibak/" xmlns="http://www.w3.org/2000/svg" class="segno"><path fill="#fff" d="M0 0h33v33h-33z"/><path class="qrline" stroke="#1f1b2e" d="M2 2.5h7m4 0h2m1 0h1m2 0h1m4 0h7m-29 1h1m5 0h1m1 0h1m1 0h3m7 0h1m1 0h1m5 0h1m-29 1h1m1 0h3m1 0h1m1 0h1m1 0h3m1 0h1m3 0h1m3 0h1m1 0h3m1 0h1m-29 1h1m1 0h3m1 0h1m1 0h2m2 0h2m2 0h2m1 0h2m1 0h1m1 0h3m1 0h1m-29 1h1m1 0h3m1 0h1m2 0h2m5 0h5m1 0h1m1 0h3m1 0h1m-29 1h1m5 0h1m4 0h1m1 0h1m4 0h1m1 0h1m1 0h1m5 0h1m-29 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-21 1h4m3 0h2m1 0h3m-21 1h1m5 0h1m1 0h1m4 0h2m2 0h1m3 0h2m2 0h3m-28 1h2m3 0h1m1 0h5m2 0h2m3 0h1m3 0h2m1 0h2m-27 1h2m2 0h2m1 0h1m1 0h1m4 0h2m5 0h3m-25 1h1m2 0h2m3 0h2m1 0h2m1 0h1m4 0h2m1 0h1m2 0h1m-26 1h1m2 0h2m1 0h3m3 0h1m3 0h1m3 0h1m1 0h2m4 0h1m-29 1h1m2 0h2m2 0h4m2 0h1m1 0h2m1 0h2m2 0h3m2 0h2m-29 1h1m4 0h2m1 0h1m1 0h1m1 0h2m1 0h1m1 0h2m1 0h2m3 0h2m-25 1h4m2 0h1m1 0h3m2 0h2m1 0h3m3 0h1m1 0h1m1 0h1m-28 1h1m1 0h4m2 0h2m1 0h2m1 0h1m1 0h3m5 0h2m-27 1h2m5 0h1m2 0h2m1 0h1m1 0h6m1 0h3m1 0h3m-29 1h2m3 0h2m1 0h1m6 0h1m3 0h1m1 0h1m3 0h1m2 0h1m-29 1h1m3 0h1m2 0h2m2 0h2m1 0h3m1 0h2m1 0h1m1 0h1m-24 1h1m1 0h5m1 0h2m7 0h1m2 0h5m1 0h3m-21 1h3m1 0h1m1 0h2m1 0h2m1 0h1m3 0h2m-26 1h7m2 0h1m1 0h1m3 0h2m1 0h3m1 0h1m1 0h3m-27 1h1m5 0h1m2 0h2m5 0h1m2 0h2m3 0h1m2 0h1m-28 1h1m1 0h3m1 0h1m2 0h3m1 0h2m1 0h1m2 0h7m1 0h1m-28 1h1m1 0h3m1 0h1m2 0h3m1 0h1m2 0h4m1 0h1m3 0h2m1 0h1m-29 1h1m1 0h3m1 0h1m2 0h2m1 0h1m2 0h3m3 0h7m-28 1h1m5 0h1m4 0h1m2 0h2m6 0h5m1 0h1m-29 1h7m1 0h1m4 0h2m2 0h3m1 0h3m2 0h1"/></svg></div>
+      <div class="qr-cap">
+        <span data-k="qr.label">اسکن کن و باز کن</span>
+        <span class="ltr">mobinbiback.github.io/Mobinbibak</span>
+      </div>
+    </section>
   </main>
 </div>
 
@@ -401,6 +416,7 @@ a.card:hover .arrow{color:var(--fg)}
       'li.desc': 'مسیر کاری و همکاری یا مشاوره‌ی هوش مصنوعی',
       'tg.title': 'چنل شخصی',
       'tg.desc': 'ایده‌ها و تجربه‌هام با هوش مصنوعی',
+      'qr.label': 'اسکن کن و باز کن',
       'c.label': 'ارتباط با من',
       'c.mail': 'ایمیل',
       copy: 'کپی',
@@ -418,6 +434,7 @@ a.card:hover .arrow{color:var(--fg)}
       'li.desc': 'Career, projects and AI consulting',
       'tg.title': 'Personal channel',
       'tg.desc': 'Ideas and experience with AI',
+      'qr.label': 'Scan to open',
       'c.label': 'Contact me',
       'c.mail': 'Email',
       copy: 'Copy',
@@ -435,6 +452,7 @@ a.card:hover .arrow{color:var(--fg)}
       'li.desc': 'Trayectoria, proyectos y consultoría en IA',
       'tg.title': 'Canal personal',
       'tg.desc': 'Ideas y experiencia con la IA',
+      'qr.label': 'Escanea para abrir',
       'c.label': 'Contacto',
       'c.mail': 'Correo',
       copy: 'Copiar',
@@ -452,6 +470,7 @@ a.card:hover .arrow{color:var(--fg)}
       'li.desc': 'Kariyer, projeler ve yapay zekâ danışmanlığı',
       'tg.title': 'Kişisel kanal',
       'tg.desc': 'Yapay zekâyla ilgili fikirler ve deneyimler',
+      'qr.label': 'Tara ve aç',
       'c.label': 'İletişim',
       'c.mail': 'E-posta',
       copy: 'Kopyala',
