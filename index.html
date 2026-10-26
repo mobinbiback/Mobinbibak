@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>مبین بی‌باک</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
+<meta name="description" content="Mobin Bibak links and contact: Subify, See Spanish, GitHub, LinkedIn, personal channel, Instagram, Telegram and email">
+<style>
+@font-face{font-family:"Vazirmatn";src:url("fonts/Vazirmatn.ttf") format("truetype");font-weight:100 900;font-display:swap}
+@font-face{font-family:"Peyda";src:url("fonts/Peyda-Regular.ttf") format("truetype");font-weight:400;font-display:swap}
+@font-face{font-family:"Peyda";src:url("fonts/Peyda-Medium.ttf") format("truetype");font-weight:500;font-display:swap}
+@font-face{font-family:"IRANYekanX";src:url("fonts/IRANYekanX-Medium.ttf") format("truetype");font-weight:500;font-display:swap}
+
+/* Layout: light link page after the reference. Top bar, hero (role, name, bio), link cards, contact rows.
+   Dark theme: starfield ground. Theme follows the system by default; the toggle sets it explicitly.
+   Type: Lalezar for the Persian name, Peyda for Persian text, IRANYekanX for Latin labels, Vazirmatn as the fallback. */
+:root{
+  color-scheme:light;
+  --bg-a:#EEF0F8; --bg-b:#F8F7FA; --bg-c:#FBF6F2;
+  --fg:#1F1B2E; --muted:#6F6A7D;
+  --accent:#8A6A4C;
+  --card:#FFFFFF; --line:#ECE8F1;
+  --shadow:0 1px 2px rgba(31,27,46,.04),0 8px 22px -18px rgba(31,27,46,.22);
+  --blue-bg:#E4F1FB;  --blue-ink:#2D6FA3;
+  --mint-bg:#E5F5EE;  --mint-ink:#2E7D5B;
+  --peach-bg:#FDEBDD; --peach-ink:#B5652E;
+  --rose-bg:#FBE4EA;  --rose-ink:#B4465F;
+  --stars:0;
+  --latin:"Manrope",system-ui,-apple-system,sans-serif;
+  background:var(--bg-b);
+  color:var(--fg);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg-a:#1B2735; --bg-b:#090A0F; --bg-c:#090A0F;
+    --fg:#F2EDE7; --muted:#9F978E;
+    --accent:#C4A07A;
+    --card:rgba(255,255,255,.035); --line:rgba(255,255,255,.08);
+    --shadow:none;
+    --blue-bg:rgba(120,180,230,.14);  --blue-ink:#8CC4EE;
+    --mint-bg:rgba(110,200,150,.14);  --mint-ink:#8ED9B3;
+    --peach-bg:rgba(230,160,100,.14); --peach-ink:#F0B384;
+    --rose-bg:rgba(230,120,150,.14);  --rose-ink:#F0A0B5;
+    --stars:1;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg-a:#1B2735; --bg-b:#090A0F; --bg-c:#090A0F;
+  --fg:#F2EDE7; --muted:#9F978E;
+  --accent:#C4A07A;
+  --card:rgba(255,255,255,.035); --line:rgba(255,255,255,.08);
+  --shadow:none;
+  --blue-bg:rgba(120,180,230,.14);  --blue-ink:#8CC4EE;
+  --mint-bg:rgba(110,200,150,.14);  --mint-ink:#8ED9B3;
+  --peach-bg:rgba(230,160,100,.14); --peach-ink:#F0B384;
+  --rose-bg:rgba(230,120,150,.14);  --rose-ink:#F0A0B5;
+  --stars:1;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;min-height:100%;
+  font:14px/1.7 "Peyda","Vazirmatn",Tahoma,sans-serif;
+  color:var(--fg);
+  background:radial-gradient(ellipse at top,var(--bg-a) 0%,var(--bg-b) 55%,var(--bg-c) 100%);
+  -webkit-font-smoothing:antialiased;
+}
+.page{position:relative;min-height:100vh;overflow-x:hidden}
+.wrap{
+  position:relative;z-index:1;
+  max-width:420px;margin-inline:auto;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-bottom:40px;
+}
+
+/* Starfield (dark only): ported from the SCSS, shadows generated in script */
+.stars{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0;opacity:var(--stars)}
+.layer{
+  position:absolute;left:0;top:0;width:1px;height:1px;border-radius:50%;
+  background:transparent;box-shadow:var(--sh);
+  animation:drift 50s linear infinite;
+}
+.layer::after{
+  content:"";position:absolute;left:0;top:2000px;width:1px;height:1px;
+  background:transparent;box-shadow:var(--sh);
+}
+.layer.s2{animation-duration:100s}
+.layer.s3{animation-duration:150s}
+@keyframes drift{from{transform:translateY(0)}to{transform:translateY(-2000px)}}
+
+/* Top bar: wordmark, language switch, theme toggle */
+.top{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding-block:20px 4px;
+}
+.brand{
+  font-family:var(--latin);font-weight:700;
+  font-size:20px;letter-spacing:.04em;color:var(--fg);direction:ltr;
+}
+/* Lens-drift on the wordmark: letters slip in and out of focus one after another */
+.fx-focus b{
+  font-weight:inherit;display:inline-block;
+  animation:fx-focus 2.6s ease-in-out infinite;
+  animation-delay:calc(var(--i) * .18s);
+}
+.fx-focus b.ac{color:var(--accent)}
+@keyframes fx-focus{
+  0%,100%{filter:blur(0);opacity:1}
+  50%{filter:blur(6px);opacity:.35}
+}
+.tools{display:flex;align-items:center;gap:8px}
+.langs{display:flex;gap:2px;padding:3px;border-radius:999px;background:var(--card);border:1px solid var(--line)}
+.langs button{
+  appearance:none;border:0;background:transparent;cursor:pointer;
+  font:600 11px/1 "IRANYekanX",Tahoma,sans-serif;letter-spacing:.08em;
+  color:var(--muted);padding:7px 9px;border-radius:999px;
+  transition:background-color .25s,color .25s;
+}
+.langs button[aria-pressed="true"]{background:var(--fg);color:var(--bg-b)}
+.langs button:focus-visible,.theme:focus-visible,.copy:focus-visible{outline:1px solid var(--accent);outline-offset:2px}
+.theme{
+  appearance:none;cursor:pointer;
+  width:34px;height:34px;border-radius:50%;
+  display:grid;place-items:center;
+  background:var(--card);border:1px solid var(--line);color:var(--fg);
+}
+.theme svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.theme .i-sun{display:none}
+.theme.dark .i-sun{display:block}
+.theme.dark .i-moon{display:none}
+
+/* Hero: avatar beside the identity block, bio under it */
+.hero{display:flex;align-items:center;gap:16px;padding-block:20px 0}
+.avatar{
+  flex:none;width:84px;height:84px;border-radius:50%;
+  border:3px solid var(--card);box-shadow:var(--shadow),0 0 0 1px var(--line);
+  overflow:hidden;
+}
+.avatar img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 20%}
+.id{min-width:0;display:flex;flex-direction:column;gap:2px}
+.role{font-size:13px;color:var(--accent);line-height:1.5;min-height:1.5em}
+/* typewriter caret, shown only while the role line is typing */
+.role.typing::after{
+  content:"";display:inline-block;width:2px;height:1em;margin-inline-start:3px;
+  background:var(--accent);vertical-align:-.15em;
+  animation:caret .8s steps(1) infinite;
+}
+@keyframes caret{50%{opacity:0}}
+h1{
+  margin:0;
+  font-family:"IRANYekanX","Vazirmatn",Tahoma,sans-serif;font-weight:500;
+  font-size:32px;line-height:1.25;color:var(--fg);
+  display:inline-block;
+}
+/* Jitterbug on the name: nervous analogue jitter, skews, jumps and dropped frames */
+.fx-jitter{animation:fx-jitter 1.9s steps(1) infinite}
+@keyframes fx-jitter{
+  0%,7%,15%,55%,100%{transform:none;opacity:1}
+  8%{transform:skewX(-14deg) translateX(-4px)}
+  10%{transform:skewX(10deg) translateX(3px)}
+  12%{transform:translateY(-3px);opacity:.6}
+  46%{transform:skewX(8deg)}
+  48%{transform:skewX(-6deg) translateY(2px);opacity:.75}
+  50%{transform:translateX(2px)}
+}
+.bio{margin:14px 0 0;color:var(--fg);opacity:.85;font-size:14.5px;line-height:1.9}
+
+/* Section labels */
+.label{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-top:24px;color:var(--muted);
+}
+.label span:first-child{
+  font-family:var(--latin);font-weight:600;
+  font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+}
+.label span:last-child{font-family:"Peyda",sans-serif;font-weight:500;color:var(--fg);font-size:14px}
+
+/* Link cards: compact rows, one line of meta */
+.links{display:grid;gap:10px;padding-top:12px}
+.card{
+  display:flex;align-items:center;gap:12px;
+  padding:11px 12px;border-radius:18px;
+  background:var(--card);
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
+  color:var(--fg);text-decoration:none;
+  transition:transform .3s cubic-bezier(.2,.8,.2,1),border-color .3s;
+  animation:rise .6s cubic-bezier(.2,.8,.2,1) backwards;
+  animation-delay:calc(var(--i,0) * 70ms + 120ms);
+}
+a.card:hover{transform:translateY(-1px);border-color:color-mix(in srgb,var(--accent) 35%,transparent)}
+a.card:active{transform:scale(.99)}
+a.card:focus-visible{outline:1px solid var(--accent);outline-offset:3px}
+
+.tile{
+  flex:none;width:46px;height:46px;border-radius:14px;
+  display:grid;place-items:center;overflow:hidden;
+  background:var(--tb);color:var(--tc);
+}
+.tile.blue{--tb:var(--blue-bg);--tc:var(--blue-ink)}
+.tile.mint{--tb:var(--mint-bg);--tc:var(--mint-ink)}
+.tile.peach{--tb:var(--peach-bg);--tc:var(--peach-ink)}
+.tile.rose{--tb:var(--rose-bg);--tc:var(--rose-ink)}
+.tile svg{
+  width:21px;height:21px;
+  fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;
+}
+.tile svg.brand{fill:currentColor;stroke:none}
+/* Subify: the logo mark cropped from the left of the full logo, on white */
+.tile.logo-tile{background:#FFFFFF;border:1px solid var(--line)}
+.tile.logo-tile img{width:100%;height:100%;object-fit:cover;object-position:left center;display:block}
+
+.txt{flex:1;min-width:0}
+.card h2{
+  margin:0;
+  font-family:"Peyda",Tahoma,sans-serif;font-weight:500;
+  font-size:15px;line-height:1.5;color:var(--fg);
+}
+.card p{
+  margin:1px 0 0;color:var(--muted);font-size:12.5px;line-height:1.6;
+  display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;
+}
+.card p.ltr{direction:ltr;text-align:start;font-family:var(--latin);font-size:12px;letter-spacing:.02em;color:var(--accent)}
+
+.arrow{flex:none;width:26px;height:26px;display:grid;place-items:center;color:var(--muted)}
+.arrow svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+/* arrow points up and away from the text: up-left in RTL, mirrored in LTR */
+[dir="ltr"] .arrow svg{transform:scaleX(-1)}
+a.card:hover .arrow{color:var(--fg)}
+
+/* Copy button for the email row */
+.copy{
+  flex:none;appearance:none;cursor:pointer;
+  font:500 12px/1 "Peyda",Tahoma,sans-serif;
+  color:var(--accent);background:transparent;
+  border:1px solid var(--line);border-radius:999px;padding:8px 12px;
+  transition:border-color .25s,background-color .25s;
+}
+.copy:hover{border-color:color-mix(in srgb,var(--accent) 45%,transparent)}
+.addr{user-select:all}
+
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* English, Spanish and Turkish use the Latin face for the whole page */
+.page:not([data-lang="fa"]),
+.page:not([data-lang="fa"]) *{font-family:var(--latin)!important}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+
+</head>
+<body>
+<div class="page" lang="fa" dir="rtl" data-lang="fa">
+  <div class="stars" aria-hidden="true">
+    <div class="layer" data-n="700" style="--sh:none"></div>
+    <div class="layer s2" data-n="200" style="--sh:none"></div>
+    <div class="layer s3" data-n="100" style="--sh:none"></div>
+  </div>
+
+  <main class="wrap">
+    <div class="top">
+      <span class="brand fx-focus" role="img" aria-label="mobinbibak."><b aria-hidden="true" style="--i:0">m</b><b aria-hidden="true" style="--i:1">o</b><b aria-hidden="true" style="--i:2">b</b><b aria-hidden="true" style="--i:3">i</b><b aria-hidden="true" style="--i:4">n</b><b class="ac" aria-hidden="true" style="--i:5">b</b><b class="ac" aria-hidden="true" style="--i:6">i</b><b class="ac" aria-hidden="true" style="--i:7">b</b><b class="ac" aria-hidden="true" style="--i:8">a</b><b class="ac" aria-hidden="true" style="--i:9">k</b><b class="ac" aria-hidden="true" style="--i:10">.</b></span>
+      <div class="tools">
+        <div class="langs" role="group" aria-label="Language">
+          <button type="button" data-lang="fa" aria-pressed="true">FA</button>
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+          <button type="button" data-lang="es" aria-pressed="false">ES</button>
+          <button type="button" data-lang="tr" aria-pressed="false">TR</button>
+        </div>
+        <button type="button" class="theme" aria-label="Dark / light theme">
+          <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+          <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <header class="hero">
+      <div class="avatar">
+        <img src="assets/mobin.jpg" alt="Mobin Bibak" width="200" height="200">
+      </div>
+      <div class="id">
+        <span class="role" data-k="role">متخصص هوش مصنوعی × کدنویس</span>
+        <h1 class="fx-jitter" data-k="name">مبین بی‌باک</h1>
+      </div>
+    </header>
+    <p class="bio" data-k="bio">هوش مصنوعی رو ساده یاد بگیر، باهاش چیزای خفن بساز و حرفه‌ای‌تر کار کن</p>
+
+    <div class="label"><span>Explore / 01</span><span data-k="label">از اینجا شروع کن</span></div>
+
+    <nav class="links" aria-label="Links">
+      <a class="card" href="https://sub-ify.site" target="_blank" rel="noopener" style="--i:0">
+        <span class="tile logo-tile"><img src="assets/subify-logo.png" alt=""></span>
+        <div class="txt">
+          <h2>Subify</h2>
+          <p data-k="sub.desc">ترجمه‌ی زیرنویس و دوبله‌ی زنده‌ی یوتیوب به فارسی</p>
+        </div>
+        <span class="arrow"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 17L7 7M7 13V7h6"/></svg></span>
+      </a>
+
+      <a class="card" href="https://mobinbiback.github.io/seespanish/" target="_blank" rel="noopener" style="--i:1">
+        <span class="tile blue"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></svg></span>
+        <div class="txt">
+          <h2 data-k="spa.title">See Spanish</h2>
+          <p data-k="spa.desc">اسپانیایی رو ساده و قدم‌به‌قدم یاد بگیر</p>
+        </div>
+        <span class="arrow"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 17L7 7M7 13V7h6"/></svg></span>
+      </a>
+
+      <a class="card" href="https://github.com/mobinbiback" target="_blank" rel="noopener" style="--i:2">
+        <span class="tile mint"><svg class="brand" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></span>
+        <div class="txt">
+          <h2>GitHub</h2>
+          <p data-k="gh.desc">کدها و ابزارهایی که ساختم و تست کردم</p>
+        </div>
+        <span class="arrow"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 17L7 7M7 13V7h6"/></svg></span>
+      </a>
+
+      <a class="card" href="https://www.linkedin.com/in/mobinbibak" target="_blank" rel="noopener" style="--i:3">
+        <span class="tile peach"><svg class="brand" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></span>
+        <div class="txt">
+          <h2>LinkedIn</h2>
+          <p data-k="li.desc">مسیر کاری و همکاری یا مشاوره‌ی هوش مصنوعی</p>
+        </div>
+        <span class="arrow"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 17L7 7M7 13V7h6"/></svg></span>
+      </a>
+
+      <a class="card" href="https://t.me/holedrug" target="_blank" rel="noopener" style="--i:4">
+        <span class="tile rose"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 4 3 11l5 2 2 6 3-4 5 4z"/><path d="M8 13l10-7"/></svg></span>
+        <div class="txt">
+          <h2 data-k="tg.title">چنل شخصی</h2>
+          <p data-k="tg.desc">ایده‌ها و تجربه‌هام با هوش مصنوعی</p>
+        </div>
+        <span class="arrow"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 17L7 7M7 13V7h6"/></svg></span>
+      </a>
+    </nav>
+
+    <div class="label"><span>Connect / 02</span><span data-k="c.label">ارتباط با من</span></div>
+
+    <nav class="links" aria-label="Contact">
+      <a class="card" href="https://instagram.com/mobinbiback" target="_blank" rel="noopener" style="--i:5">
+        <span class="tile rose"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6"/></svg></span>
+        <div class="txt">
+          <h2>Instagram</h2>
+          <p class="ltr">instagram.com/mobinbiback</p>
+        </div>
+        <span class="arrow"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 17L7 7M7 13V7h6"/></svg></span>
+      </a>
+
+      <a class="card" href="https://t.me/mobinbiback" target="_blank" rel="noopener" style="--i:6">
+        <span class="tile blue"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 4 3 11l5 2 2 6 3-4 5 4z"/><path d="M8 13l10-7"/></svg></span>
+        <div class="txt">
+          <h2>Telegram</h2>
+          <p class="ltr">t.me/mobinbiback</p>
+        </div>
+        <span class="arrow"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 17L7 7M7 13V7h6"/></svg></span>
+      </a>
+
+      <div class="card" style="--i:7">
+        <span class="tile mint"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
+        <div class="txt">
+          <h2 data-k="c.mail">ایمیل</h2>
+          <p class="ltr addr">mobinbiback@gmail.com</p>
+        </div>
+        <button type="button" class="copy" data-copy="mobinbiback@gmail.com"><span data-k="copy">کپی</span></button>
+      </div>
+    </nav>
+  </main>
+</div>
+
+<script>
+(function () {
+  // Starfield: random shadow points per layer, same counts as the original SCSS (700 / 200 / 100)
+  function shadows(n) {
+    var out = [];
+    for (var i = 0; i < n; i++) {
+      out.push((Math.random() * 2000 | 0) + 'px ' + (Math.random() * 2000 | 0) + 'px #FFF');
+    }
+    return out.join(',');
+  }
+  document.querySelectorAll('.layer').forEach(function (el) {
+    el.style.setProperty('--sh', shadows(+el.getAttribute('data-n')));
+  });
+
+  // Languages: Persian (default), English, Spanish, Turkish (Istanbul)
+  var T = {
+    fa: {
+      role: 'متخصص هوش مصنوعی × کدنویس',
+      name: 'مبین بی‌باک',
+      label: 'از اینجا شروع کن',
+      bio: 'هوش مصنوعی رو ساده یاد بگیر، باهاش چیزای خفن بساز و حرفه‌ای‌تر کار کن',
+      'sub.desc': 'ترجمه‌ی زیرنویس و دوبله‌ی زنده‌ی یوتیوب به فارسی',
+      'spa.title': 'See Spanish',
+      'spa.desc': 'اسپانیایی رو ساده و قدم‌به‌قدم یاد بگیر',
+      'gh.desc': 'کدها و ابزارهایی که ساختم و تست کردم',
+      'li.desc': 'مسیر کاری و همکاری یا مشاوره‌ی هوش مصنوعی',
+      'tg.title': 'چنل شخصی',
+      'tg.desc': 'ایده‌ها و تجربه‌هام با هوش مصنوعی',
+      'c.label': 'ارتباط با من',
+      'c.mail': 'ایمیل',
+      copy: 'کپی',
+      copied: 'کپی شد'
+    },
+    en: {
+      role: 'AI Specialist × Developer',
+      name: 'Mobin Bibak',
+      label: 'Start here',
+      bio: 'Learn AI the simple way, build cool things with it, and work smarter',
+      'sub.desc': 'YouTube subtitles and live dubbing in Persian',
+      'spa.title': 'See Spanish',
+      'spa.desc': 'Learn Spanish step by step, simply',
+      'gh.desc': 'Code and tools I have built and tested',
+      'li.desc': 'Career, projects and AI consulting',
+      'tg.title': 'Personal channel',
+      'tg.desc': 'Ideas and experience with AI',
+      'c.label': 'Contact me',
+      'c.mail': 'Email',
+      copy: 'Copy',
+      copied: 'Copied'
+    },
+    es: {
+      role: 'Especialista en IA × Programador',
+      name: 'Mobin Bibak',
+      label: 'Empieza aquí',
+      bio: 'Aprende IA de forma sencilla, crea cosas increíbles con ella y trabaja de forma más inteligente',
+      'sub.desc': 'Subtítulos y doblaje en vivo de YouTube al persa',
+      'spa.title': 'See Spanish',
+      'spa.desc': 'Aprende español paso a paso',
+      'gh.desc': 'Código y herramientas que he probado',
+      'li.desc': 'Trayectoria, proyectos y consultoría en IA',
+      'tg.title': 'Canal personal',
+      'tg.desc': 'Ideas y experiencia con la IA',
+      'c.label': 'Contacto',
+      'c.mail': 'Correo',
+      copy: 'Copiar',
+      copied: 'Copiado'
+    },
+    tr: {
+      role: 'Yapay Zekâ Uzmanı × Kodcu',
+      name: 'Mobin Bibak',
+      label: 'Buradan başla',
+      bio: 'Yapay zekâyı kolayca öğren, onunla harika şeyler inşa et ve daha akıllı çalış',
+      'sub.desc': 'YouTube altyazı çevirisi ve canlı seslendirme',
+      'spa.title': 'See Spanish',
+      'spa.desc': 'İspanyolcayı adım adım öğren',
+      'gh.desc': 'Yaptığım ve test ettiğim kodlar ve araçlar',
+      'li.desc': 'Kariyer, projeler ve yapay zekâ danışmanlığı',
+      'tg.title': 'Kişisel kanal',
+      'tg.desc': 'Yapay zekâyla ilgili fikirler ve deneyimler',
+      'c.label': 'İletişim',
+      'c.mail': 'E-posta',
+      copy: 'Kopyala',
+      copied: 'Kopyalandı'
+    }
+  };
+  var DIR = { fa: 'rtl', en: 'ltr', es: 'ltr', tr: 'ltr' };
+  var root = document.documentElement;
+  var page = document.querySelector('.page');
+  var reduceMotion = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var cur = 'fa';
+
+  // Typewriter on the role line: types once per language switch, caret shows only while typing
+  var roleEl = document.querySelector('.role');
+  var typeTimer = null;
+  function typeRole(text) {
+    clearTimeout(typeTimer);
+    if (reduceMotion) { roleEl.textContent = text; return; }
+    var chars = Array.from(text);
+    var i = 0;
+    roleEl.textContent = '';
+    roleEl.classList.add('typing');
+    (function step() {
+      i++;
+      roleEl.textContent = chars.slice(0, i).join('');
+      if (i < chars.length) {
+        typeTimer = setTimeout(step, 42);
+      } else {
+        roleEl.classList.remove('typing');
+      }
+    })();
+  }
+
+  function setLang(l) {
+    if (!T[l]) l = 'fa';
+    cur = l;
+    page.setAttribute('lang', l);
+    page.setAttribute('data-lang', l);
+    page.setAttribute('dir', DIR[l]);
+    document.querySelectorAll('[data-k]').forEach(function (el) {
+      var k = el.getAttribute('data-k');
+      if (k === 'role') return;
+      var v = T[l][k];
+      if (v != null) el.textContent = v;
+    });
+    typeRole(T[l].role);
+    document.querySelectorAll('.langs button').forEach(function (b) {
+      b.setAttribute('aria-pressed', b.getAttribute('data-lang') === l ? 'true' : 'false');
+    });
+    try { localStorage.setItem('mobin-lang', l); } catch (e) {}
+  }
+
+  document.querySelectorAll('.langs button').forEach(function (b) {
+    b.addEventListener('click', function () { setLang(b.getAttribute('data-lang')); });
+  });
+
+  // Copy email: clipboard in the click handler, selection fallback when refused
+  document.querySelectorAll('.copy').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var label = btn.querySelector('span');
+      var addr = btn.parentElement.querySelector('.addr');
+      function done() {
+        label.textContent = T[cur].copied;
+        setTimeout(function () { label.textContent = T[cur].copy; }, 1600);
+      }
+      function fallback() {
+        var r = document.createRange();
+        r.selectNodeContents(addr);
+        var s = window.getSelection();
+        s.removeAllRanges();
+        s.addRange(r);
+      }
+      try {
+        navigator.clipboard.writeText(btn.getAttribute('data-copy')).then(done, fallback);
+      } catch (e) {
+        fallback();
+      }
+    });
+  });
+
+  // Theme: follows the system until the toggle sets dark or light explicitly
+  var themeBtn = document.querySelector('.theme');
+  var mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+
+  function isDarkNow() {
+    var t = root.getAttribute('data-theme');
+    if (t === 'dark' || t === 'light') return t === 'dark';
+    return !!(mq && mq.matches);
+  }
+  function paintTheme() {
+    themeBtn.classList.toggle('dark', isDarkNow());
+  }
+
+  themeBtn.addEventListener('click', function () {
+    var next = isDarkNow() ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('mobin-theme', next); } catch (e) {}
+    paintTheme();
+  });
+  if (mq && mq.addEventListener) mq.addEventListener('change', paintTheme);
+
+  var savedTheme = null;
+  try { savedTheme = localStorage.getItem('mobin-theme'); } catch (e) {}
+  if (savedTheme === 'dark' || savedTheme === 'light') root.setAttribute('data-theme', savedTheme);
+  paintTheme();
+
+  var saved = null;
+  try { saved = localStorage.getItem('mobin-lang'); } catch (e) {}
+  setLang(saved || 'fa');
+})();
+</script>
+</body>
+</html>
